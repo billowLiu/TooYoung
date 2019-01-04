@@ -81,6 +81,12 @@
         return routeObj;
     };
 
+    Vipspa.prototype.go = function (hash) {
+        location.hash=hash;
+    };
+
+
+
     //var str = '#parent/child?param=val'; getHashPathAndParams(str)
     function getHashPathAndParams(hash) {
         if (hash === '') return false;

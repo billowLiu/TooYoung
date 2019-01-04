@@ -1,6 +1,7 @@
 $(function(){
-    if ($.cookie('currentUser')==null) {
+    if ($.cookie('currentUser') !=null) {
         location.hash="#home";
-    }
-    $("#login").innerHTML="欢迎登录";
+    };
+    document.getElementById("login").innerHTML="你好";
+    alert($("#login").html("欢迎"));
 });

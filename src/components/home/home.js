@@ -1,6 +1,6 @@
 $(function () {
-    if($.cookie("test") ==null){
-        location.hash="/login";
+    if($.cookie("test")||$.cookie("test")==undefined){
+        location.hash="login";
     }
     
 })
