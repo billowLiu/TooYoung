@@ -75,6 +75,11 @@
         }
         return hash;
     };
+    Vipspa.prototype.getRouterObj = function () {
+        var hash = location.hash;
+        var routeObj = vipspa.parse(hash);
+        return routeObj;
+    };
 
     //var str = '#parent/child?param=val'; getHashPathAndParams(str)
     function getHashPathAndParams(hash) {
