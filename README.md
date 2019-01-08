@@ -14,4 +14,4 @@
   + config/         	配置
   + plugin/          	第三方插件
   + vendor/          	第三方框架
-  index.html			项目入口
+  + index.html			项目入口
