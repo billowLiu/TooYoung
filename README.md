@@ -11,7 +11,7 @@
   - component/      	开发组件(按功能html与js)
     + common/      	公用组件
     + login/			登录模块组件
-    + config/         	配置
-    + plugin/          	第三方插件
-    + vendor/          	第三方框架
+  + config/         	配置
+  + plugin/          	第三方插件
+  + vendor/          	第三方框架
   index.html			项目入口
