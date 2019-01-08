@@ -20,12 +20,11 @@ function _config (param) {
             baseDir: param.baseDir
         },
         host: "localhost",
-        // proxy: "localhost:7090",
         port: param.port
     };
 }
 
-/** 源码环境静态服务器 */
+/** 开发环境静态服务器 */
 function dev(cb) {
     browserSync.init(_config({ baseDir: _PATH.src, port: "8081" }));
     cb();
