@@ -2,6 +2,7 @@
     function Vipspa() {
 
     }
+
     Vipspa.prototype.start = function (config) {
         var self = this;
         self.routerMap = config.router;
@@ -82,9 +83,8 @@
     };
 
     Vipspa.prototype.go = function (hash) {
-        location.hash=hash;
+        location.hash = hash;
     };
-
 
 
     //var str = '#parent/child?param=val'; getHashPathAndParams(str)
@@ -114,6 +114,7 @@
         }
 
     }
+
     // var str = 'a=1&b=2'; getParamsFromQuerystring(str)
     function getParamsFromQuerystring(quertString) {
         var paramArr = quertString.split('&');
@@ -142,15 +143,16 @@
 
         return hashPathAndParams
     };
+
     function routerAction(hashPathAndParams) {
         var path = hashPathAndParams.path;
         var routers = hashPathAndParams.routers;
         var param = hashPathAndParams.param;
         if (typeof routers === 'undefined') {
             var defaultsRoute = vipspa.routerMap.defaults;
-                routerItem = vipspa.routerMap[defaultsRoute];
-                location.hash = defaultsRoute;
-                return false;
+            routerItem = vipspa.routerMap[defaultsRoute];
+            location.hash = defaultsRoute;
+            return false;
         }
         // 普通一级路由
         if (routers.length === 1) {
@@ -159,7 +161,7 @@
             var url = routers[0];
             var routerItem = vipspa.routerMap[url];
 
-            if (typeof routerItem === 'undefined') {
+            if (typeof routerItem === 'undefined' || routerItem === null) {
                 var defaultsRoute = vipspa.routerMap.defaults;
                 routerItem = vipspa.routerMap[defaultsRoute];
                 location.hash = defaultsRoute;
@@ -183,7 +185,7 @@
 
             var routerItem = vipspa.routerMap[url];
 
-            if (typeof routerItem === 'undefined') {
+            if (typeof routerItem === 'undefined' || routerItem === null) {
                 var defaultsRoute = vipspa.routerMap.defaults;
                 routerItem = vipspa.routerMap[defaultsRoute];
                 location.hash = defaultsRoute;
@@ -195,7 +197,7 @@
 
             var subRouterItem = getSubRouterItem(children, subUrl);
 
-            if (typeof routerItem === 'undefined') {
+            if (typeof subRouterItem === 'undefined' || subRouterItem === null) {
                 var defaultsRoute = vipspa.routerMap.defaults;
                 routerItem = vipspa.routerMap[defaultsRoute];
                 location.hash = defaultsRoute;
@@ -270,6 +272,7 @@
         loadScript(routerItem.controller);
         cb && cb();
     }
+
     function getHtmlsFromCatch(routerUrl) {
         for (var i = 0, e; i < vipspa.catchHtmls.length; i++) {
             e = vipspa.catchHtmls[i];

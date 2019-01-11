@@ -8,9 +8,14 @@ $(function() {
                 subView: "#main",
                 children:[
                     {
-                        name:'/ch1',
-                        templateUrl:'components/ch1/ch1.html',
-                        controller: 'components/ch1/ch1.js'
+                        name:'demo1',
+                        templateUrl:'components/demo1/demo1.html',
+                        controller: 'components/demo1/demo1.js'
+                    },
+                    {
+                        name:'demo2',
+                        templateUrl:'components/demo2/demo2.html',
+                        controller: 'components/demo2/demo2.js'
                     }
                 ]
             },
