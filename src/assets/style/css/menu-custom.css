@@ -27,6 +27,7 @@
     float: left;
     height: 100%;
     background-color: #007AFF;
+    overflow-y: auto;
 }
 
 #menu_nav::-webkit-scrollbar {

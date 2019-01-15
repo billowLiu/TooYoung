@@ -2,7 +2,6 @@ $(function () {
     if(!$.cookie("currentUser")||$.cookie("currentUser")==undefined){
         location.hash="login";
     };
-
     //顶部导航切换
     $("#menu-list li").click(function () {
         $("#menu-list li.active").removeClass("active")
