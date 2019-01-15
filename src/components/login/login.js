@@ -5,7 +5,7 @@ $(function () {
     ;
     //document.getElementById("login").innerHTML="你好";
     $("#login").html("欢迎");
-    $.post("http://localhost:8080/login.do", {"loginName": "admin", "password": "root123"},
+    $.post("http://193.112.17.207/tooSimple/login.do", {"loginName": "admin", "password": "root123"},
         function (data) {
             if (data.code == 200) {
                 $.cookie("currentUser", JSON.stringify(data.data));

@@ -11,7 +11,7 @@ const timestamp = require('time-stamp');
 /** 将打包文件进行压缩，文件名格式：archive-YYYY-MM-DD-HHmmssms.zip */
 function compress(cb) {
     // const filename = 'archive' + timestamp('-YYYY-MM-DD-HHmmssms') + '.zip';
-    const filename = 'tooSimple.zip';
+    const filename = 'tooYoung.zip';
     setTimeout(() => {
         gulp.src(_PATH.src)
             .pipe(zip(filename))

@@ -65,3 +65,6 @@ typings/
 
 # node package
 package-lock.json
+
+# dist
+dist
