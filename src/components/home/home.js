@@ -8,7 +8,7 @@ $(function () {
         $(this).addClass("active");
     });
 
-    $("#menu").jqueryAccordionMenu();
+    $("#nav").jqueryAccordionMenu({"user":"nihao"});
 
     $.expr[":"].Contains = function (a, i, m) {
         return (a.textContent || a.innerText || "").toUpperCase().indexOf(m[3].toUpperCase()) >= 0;
