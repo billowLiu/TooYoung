@@ -5,7 +5,8 @@
         showDelay: 0,
         hideDelay: 0,
         singleOpen: true,//只展开单个
-        clickEffect: false
+        clickEffect: false,
+        queryHeader: true //是否显示头部查询
     };
     var menuConfig = {
         useHash: true
@@ -84,7 +85,9 @@
             this.createMenuTree();
             this.openSubmenu();
             this.submenuIndicators();
-
+            if (defaults.queryHeader) {
+                this.filterList($("#menu-header"), $("#menu-list"))
+            }
             if (defaults.clickEffect) {
                 this.addClickEffect()
             }
@@ -92,12 +95,20 @@
         createMenuTree: function () {
             //传入menujson 数据this.settings.menuData;
             var menulist = menuData;
-            var header = this.settings.header;
+            var header = defaults.header;
+
             if (menulist && menulist.length > 0) {
                 var menuDiv = $("<div>").attr({
                     class: "simple-menu",
                     id: "simple-menu"
                 });
+                if (header) {
+                    var menuHeader = $("<div>").attr({
+                        class: "simple-menu-header",
+                        id: "menu-header"
+                    })
+                    $(menuDiv).append(menuHeader);
+                }
                 var menuUl = $("<ul>").attr({
                     "id": "menu-list"
                 });
@@ -269,6 +280,59 @@
                         left: x + 'px'
                     }).addClass("animate-ink")
                 })
+        },
+        filterList: function (header, list) {
+            //@header 头部元素
+            //@list 无需列表
+            //创建一个搜素表单
+            var form = $("<form>").attr({
+                "class": "filterform",
+                action: "#"
+            }), input = $("<input>").attr({
+                "class": "filterinput",
+                type: "text"
+            }), search = $("<i>").attr({
+                "class": "fa fa-search search_icon"
+            });
+            $(form).append(input).appendTo(header);
+            $(form).append(search).appendTo(header);
+            $(input).change(function () {
+                var filter = $(this).val();
+                if (filter) {
+                    $(list).find("ul").slideUp();
+                    $(list).find("li").slideUp();
+                    // $.expr[":"].Contains = function (a, i, m) {
+                    //     return (a.textContent || a.innerText || "").toUpperCase().indexOf(m[3].toUpperCase()) >= 0;
+                    // };
+                    var matches = $(list).find("a:Contains(" + filter + ")");
+                    if (matches.length > 0) {
+                        var matchesParents = matches.parent();
+                        matchesParents.slideDown();
+                        // matchesParents.siblings("li").slideUp();
+                        if (matchesParents.parent(".submenu").length > 0) {
+                            var matchesParentsParents = matchesParents.parent(".submenu").parent();
+                            matchesParents.parent(".submenu").slideDown();
+                            matchesParentsParents.slideDown();
+                            // matchesParentsParents.siblings("li").slideUp();
+                            if (matchesParentsParents.parent(".submenu").length > 0) {
+                                matchesParentsParents.parent(".submenu").slideDown();
+                                matchesParentsParents.parent(".submenu").parent().slideDown();
+                                // matchesParentsParents.parent(".submenu").parent().siblings("li").slideUp();
+                            }
+                        }
+                    } else {
+                        $(list).find("ul").slideUp();
+                        $(list).find("li").slideUp();
+                    }
+                } else {
+                    $(list).find("ul").slideUp();
+                    $(list).find("li").slideUp();
+                    $(list).find("li").slideDown();
+                }
+                return false;
+            }).keyup(function () {
+                $(this).change();
+            });
         }
     });
     $.fn[pluginName] = function (options) {
