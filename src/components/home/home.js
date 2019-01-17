@@ -32,10 +32,31 @@ $(function () {
         $(input).change(function () {
             var filter = $(this).val();
             if (filter) {
-                $matches = $(list).find("a:Contains(" + filter + ")").parent();
-                $("li", list).not($matches).slideUp();
-                $matches.slideDown();
+                $(list).find("ul").slideUp();
+                $(list).find("li").slideUp();
+                var matches = $(list).find("a:Contains(" + filter + ")");
+                if(matches.length>0){
+                    var matchesParents=matches.parent();
+                    matchesParents.slideDown();
+                    // matchesParents.siblings("li").slideUp();
+                    if(matchesParents.parent(".submenu").length>0){
+                        var matchesParentsParents=matchesParents.parent(".submenu").parent();
+                        matchesParents.parent(".submenu").slideDown();
+                        matchesParentsParents.slideDown();
+                        // matchesParentsParents.siblings("li").slideUp();
+                        if(matchesParentsParents.parent(".submenu").length>0){
+                            matchesParentsParents.parent(".submenu").slideDown();
+                            matchesParentsParents.parent(".submenu").parent().slideDown();
+                            // matchesParentsParents.parent(".submenu").parent().siblings("li").slideUp();
+                        }
+                    }
+                }else{
+                    $(list).find("ul").slideUp();
+                    $(list).find("li").slideUp();
+                }
             } else {
+                $(list).find("ul").slideUp();
+                $(list).find("li").slideUp();
                 $(list).find("li").slideDown();
             }
             return false;

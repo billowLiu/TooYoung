@@ -7,43 +7,45 @@
         singleOpen: true,//只展开单个
         clickEffect: false
     };
-    var menuConfig={
-        useHash:true
+    var menuConfig = {
+        useHash: true
     }
     var menuData = [
         {
             url: "#",
             icon: "fa-home",
             name: "一级目录(1)",
-            default:true,
             submenu: [
                 {
                     url: "#",
                     icon: "fa-home",
-                    name: "二级目录(1)",
-                    default:true,
+                    name: "二级目录(1)二级目录(1)二级目录(1)二级目录(1)",
                     submenu: [
                         {
                             url: "#home/demo1",
                             icon: "fa-home",
                             name: "三级",
-                            default:true,
+                            submenu: []
+                        },
+                        {
+                            url: "#home/demo1",
+                            icon: "fa-home",
+                            name: "三级",
+                            submenu: []
+                        },
+                        {
+                            url: "#home/demo1",
+                            icon: "fa-home",
+                            name: "三级",
                             submenu: []
                         }
                     ]
                 },
                 {
-                    url: "#",
+                    url: "#home/demo2",
                     icon: "fa-home",
                     name: "二级目录(2)",
-                    submenu: [
-                        {
-                            url: "#home/demo1",
-                            icon: "fa-home",
-                            name: "三级",
-                            submenu: []
-                        }
-                    ]
+                    submenu: []
                 }
             ]
         },
@@ -103,9 +105,9 @@
                     var menu = menulist[i];
                     if (menu) {
                         var menuLi = $("<li>");
-                        if(menu.default  &&  menu.default ==true){
+                        if (menu.default && menu.default == true) {
                             menuLi.attr({
-                                class:"active"
+                                class: "active"
                             })
                         }
                         var menua = $("<a>").attr({
@@ -114,8 +116,13 @@
                         var menuI = $("<i>").attr({
                             class: "fa " + menu.icon
                         })
+                        var menuNameSpan = $("<span>").attr({
+                            class: "menu-name-span",
+                            title: menu.name
+                        })
                         $(menua).append(menuI);
-                        $(menua).append(menu.name);
+                        $(menuNameSpan).append(menu.name)
+                        $(menua).append(menuNameSpan);
                         $(menuLi).append(menua);
                         if (menu.submenu && menu.submenu.length > 0) {
                             var submenuUl = $("<ul>").attr({
@@ -126,18 +133,20 @@
                                 var smenu = menu.submenu[j];
                                 if (smenu) {
                                     var smenuLi = $("<li>");
-                                    if(smenu.default  &&  smenu.default ==true){
+                                    if (smenu.default && smenu.default == true) {
                                         smenuLi.attr({
-                                            class:"active"
+                                            class: "active"
                                         })
                                     }
                                     var smenua = $("<a>").attr({
                                         href: smenu.url
                                     })
-                                    // var smenuI=$("<i>").attr({
-                                    //     class:"fa "+smenu.icon
-                                    // })
-                                    $(smenua).append(smenu.name);
+                                    var smenuNameSpan = $("<span>").attr({
+                                        class: "menu-name-span",
+                                        title: smenu.name
+                                    })
+                                    $(smenuNameSpan).append(smenu.name)
+                                    $(smenua).append(smenuNameSpan);
                                     $(smenuLi).append(smenua);
                                     if (smenu.submenu && smenu.submenu.length > 0) {
                                         var ssubmenuUl = $("<ul>").attr({
@@ -148,19 +157,20 @@
                                             var ssmenu = smenu.submenu[m];
                                             if (ssmenu) {
                                                 var ssmenuLi = $("<li>");
-                                                if(ssmenu.default  &&  ssmenu.default ==true){
+                                                if (ssmenu.default && ssmenu.default == true) {
                                                     ssmenuLi.attr({
-                                                        class:"active"
+                                                        class: "active"
                                                     })
                                                 }
                                                 var ssmenua = $("<a>").attr({
                                                     href: ssmenu.url
                                                 })
-                                                // var ssmenuI=$("<i>").attr({
-                                                //     class:"fa "+ssmenu.icon
-                                                // })
-                                                //$(ssmenua).append(ssmenuI);
-                                                $(ssmenua).append(ssmenu.name);
+                                                var ssmenuNameSpan = $("<span>").attr({
+                                                    class: "menu-name-span",
+                                                    title: ssmenu.name
+                                                })
+                                                $(ssmenuNameSpan).append(ssmenu.name);
+                                                $(ssmenua).append(ssmenuNameSpan);
                                                 $(ssmenuLi).append(ssmenua);
                                                 $(ssubmenuUl).append(ssmenuLi);
                                             }
@@ -208,13 +218,26 @@
                         }
                         return false
                     }
-                    $(".active").removeClass("active");
-                    $(this).addClass("active");
-                    //判断是href  还是 hash
-                    if(menuConfig.useHash){
-                        location.hash=$(this).children("a").attr("href");
+                    //去掉其他已选中的菜单
+                    $("#simple-menu").find(".menu-active").removeClass("menu-active");
+                    //选中菜单
+                    $(this).addClass("menu-active");
+                    //选中父级菜单
+                    if ($(this).parent(".submenu")) {
+                        $(this).parent().parent().addClass("menu-active");
+                        if ($(this).parent().parent().parent(".submenu")) {
+                            $(this).parent().parent().parent().parent().addClass("menu-active");
+                        }
                     }
-                    window.location.href = $(this).children("a").attr("href")
+                    if ($(this).children("a").attr("href") == "#") {
+                        return false;
+                    }
+                    //判断是href  还是 hash
+                    if (menuConfig.useHash) {
+                        location.hash = $(this).children("a").attr("href");
+                    } else {
+                        window.location.href = $(this).children("a").attr("href");
+                    }
                 })
         },
         submenuIndicators: function () {
