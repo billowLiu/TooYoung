@@ -39,7 +39,7 @@
         createMenuTree: function () {
             //传入menujson 数据this.settings.menuData;
             var menulist = defaults.menuData;
-            var header = defaults.header;
+            var header = defaults.queryHeader;
 
             if (menulist && menulist.length > 0) {
                 var menuDiv = $("<div>").attr({
