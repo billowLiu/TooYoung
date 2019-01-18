@@ -6,76 +6,20 @@
         hideDelay: 0,
         singleOpen: true,//只展开单个
         clickEffect: false,
-        queryHeader: true //是否显示头部查询
+        queryHeader: true,//是否显示头部查询
+        menuData: []
     };
     var menuConfig = {
         useHash: true
     }
-    var menuData = [
-        {
-            url: "#",
-            icon: "fa-home",
-            name: "一级目录(1)",
-            submenu: [
-                {
-                    url: "#",
-                    icon: "fa-home",
-                    name: "二级目录(1)二级目录(1)二级目录(1)二级目录(1)",
-                    submenu: [
-                        {
-                            url: "#home/demo1",
-                            icon: "fa-home",
-                            name: "三级",
-                            submenu: []
-                        },
-                        {
-                            url: "#home/demo1",
-                            icon: "fa-home",
-                            name: "三级",
-                            submenu: []
-                        },
-                        {
-                            url: "#home/demo1",
-                            icon: "fa-home",
-                            name: "三级",
-                            submenu: []
-                        }
-                    ]
-                },
-                {
-                    url: "#home/demo2",
-                    icon: "fa-home",
-                    name: "二级目录(2)",
-                    submenu: []
-                }
-            ]
-        },
-        {
-            url: "#",
-            icon: "fa-glass",
-            name: "一级目录(2)",
-            submenu: [
-                {
-                    url: "#",
-                    icon: "fa-glass",
-                    name: "主页",
-                    submenu: [
-                        {
-                            url: "#home/demo2",
-                            icon: "fa-glass",
-                            name: "主页",
-                            submenu: []
-                        }
-                    ]
-                }
-            ]
-        }
-    ]
+    var menuData = [];
 
     function Plugin(element, options) {
         this.element = element;
-        this.settings = $.extend({},
-            defaults, options);
+        // this.settings = $.extend({},
+        //     defaults, options);
+        defaults.menuData=options.menudata?options.menudata:[];
+        defaults.queryHeader=options.header?options.header:true;
         this._defaults = defaults;
         this._name = pluginName;
         this.init()
@@ -94,7 +38,7 @@
         },
         createMenuTree: function () {
             //传入menujson 数据this.settings.menuData;
-            var menulist = menuData;
+            var menulist = defaults.menuData;
             var header = defaults.header;
 
             if (menulist && menulist.length > 0) {

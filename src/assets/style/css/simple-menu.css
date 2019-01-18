@@ -57,7 +57,7 @@
 
 .simple-menu ul li a {
     width: 100%;
-    padding: 14px 22px;
+    padding: 14px 0px;
     float: left;
     text-decoration: none;
     color: #f0f0f0;
@@ -82,14 +82,17 @@
 }
 
 .simple-menu ul li a i {
-    width: 34px;
+    width: 18px;
     float: left;
     line-height: 18px;
-    font-size: 16px;
-    text-align: left
+    margin-left: 15px;
+    margin-right: 15px;
+    font-size: 20px;
+    text-align: center;
 }
-.simple-menu a .menu-name-span{
-    display:block;
+
+.simple-menu a .menu-name-span {
+    display: block;
     float: left;
     width: 100px !important;
     overflow: hidden !important;
@@ -98,7 +101,7 @@
 
 .simple-menu .submenu-indicator {
     float: right;
-    right: 22px;
+    /*right: 22px;*/
     position: absolute;
     line-height: 19px;
     font-size: 20px;
@@ -270,7 +273,6 @@
     border-top-color: #007AFF;
     border-bottom-color: #007AFF;
 }
-
 
 .green.menu-nav {
     background: #03A678
