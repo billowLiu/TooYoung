@@ -1,12 +1,12 @@
 ;(function ($, window, document, undefined) {
-    var pluginName = "jqueryAccordionMenu";
+    var pluginName = "jquerySimpleMenu";
     var defaults = {
         speed: 300,
         showDelay: 0,
         hideDelay: 0,
         singleOpen: true,//只展开单个
         clickEffect: false,
-        queryHeader: true,//是否显示头部查询
+        queryHeader: false,//是否显示头部查询
         menuData: []
     };
     var menuConfig = {
@@ -19,7 +19,7 @@
         // this.settings = $.extend({},
         //     defaults, options);
         defaults.menuData=options.menudata?options.menudata:[];
-        defaults.queryHeader=options.header?options.header:true;
+        defaults.queryHeader=options.header?options.header:false;
         this._defaults = defaults;
         this._name = pluginName;
         this.init()
@@ -229,54 +229,58 @@
             //@header 头部元素
             //@list 无需列表
             //创建一个搜素表单
-            var form = $("<form>").attr({
-                "class": "filterform",
-                action: "#"
-            }), input = $("<input>").attr({
+            // var form = $("<form>").attr({
+            //     "class": "filterform",
+            //     action: "#"
+            // }),
+            var input = $("<input>").attr({
                 "class": "filterinput",
                 type: "text"
             }), search = $("<i>").attr({
                 "class": "fa fa-search search_icon"
             });
-            $(form).append(input).appendTo(header);
-            $(form).append(search).appendTo(header);
-            $(input).change(function () {
+            header.append(search);
+            header.append(input);
+            // $(form).append(search).appendTo(header);
+            // $(form).append(input).appendTo(header);
+            $(input).keyup(function () {
                 var filter = $(this).val();
                 if (filter) {
-                    $(list).find("ul").slideUp();
-                    $(list).find("li").slideUp();
+                    $(list).find("ul").slideUp(1);
+                    $(list).find("li").slideUp(1);
+                    $(list).find(".fa-caret-down").removeClass("fa-caret-down").addClass("fa-caret-right");
                     // $.expr[":"].Contains = function (a, i, m) {
                     //     return (a.textContent || a.innerText || "").toUpperCase().indexOf(m[3].toUpperCase()) >= 0;
                     // };
                     var matches = $(list).find("a:Contains(" + filter + ")");
                     if (matches.length > 0) {
                         var matchesParents = matches.parent();
-                        matchesParents.slideDown();
+                        matchesParents.slideDown(1);
                         // matchesParents.siblings("li").slideUp();
                         if (matchesParents.parent(".submenu").length > 0) {
                             var matchesParentsParents = matchesParents.parent(".submenu").parent();
-                            matchesParents.parent(".submenu").slideDown();
-                            matchesParentsParents.slideDown();
+                            matchesParents.parent(".submenu").slideDown(1);
+                            matchesParentsParents.slideDown(1);
+                            matchesParents.parent(".submenu").siblings().find(".fa-caret-right").removeClass("fa-caret-right").addClass("fa-caret-down");
                             // matchesParentsParents.siblings("li").slideUp();
                             if (matchesParentsParents.parent(".submenu").length > 0) {
-                                matchesParentsParents.parent(".submenu").slideDown();
-                                matchesParentsParents.parent(".submenu").parent().slideDown();
+                                matchesParentsParents.parent(".submenu").slideDown(1);
+                                matchesParentsParents.parent(".submenu").parent().slideDown(1);
+                                matchesParentsParents.parent(".submenu").siblings().find(".fa-caret-right").removeClass("fa-caret-right").addClass("fa-caret-down");
                                 // matchesParentsParents.parent(".submenu").parent().siblings("li").slideUp();
                             }
                         }
-                    } else {
-                        $(list).find("ul").slideUp();
-                        $(list).find("li").slideUp();
                     }
                 } else {
-                    $(list).find("ul").slideUp();
-                    $(list).find("li").slideUp();
-                    $(list).find("li").slideDown();
+                    $(list).find("ul").slideUp(1);
+                    $(list).find("li").slideDown(1);
+                    $(list).find(".fa-caret-down").removeClass("fa-caret-down").addClass("fa-caret-right");
                 }
                 return false;
-            }).keyup(function () {
-                $(this).change();
-            });
+            })
+            //     .change(function () {
+            //     $(this).keyup();
+            // });
         }
     });
     $.fn[pluginName] = function (options) {

@@ -62,6 +62,6 @@ $(function () {
             ]
         }
     ]
-    $("#nav").jqueryAccordionMenu({menudata:menudata});
+    $("#nav").jquerySimpleMenu({menudata:menudata,header:true});
 
 })

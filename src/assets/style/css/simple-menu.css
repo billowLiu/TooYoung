@@ -33,8 +33,7 @@
 
 .simple-menu-header {
     width: 100%;
-    padding-top: 10px;
-    padding-left: 12px;
+    padding: 14px 0px;
     float: left;
     line-height: 50px;
     font-weight: 600;
@@ -398,7 +397,18 @@
     text-indent: 0.5em;
     font-weight: bold;
     color: #FFF;
-    margin: auto auto auto auto;
+}
+
+.search_icon {
+    width: 18px;
+    line-height: 18px;
+    margin-left: 15px;
+    margin-right: 15px;
+    font-size: 20px;
+    text-align: center;
+}
+.filterform{
+    margin-bottom: 0px;
 }
 
 

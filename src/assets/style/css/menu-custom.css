@@ -1,12 +1,5 @@
 
 
-/*#menu-list a {*/
-    /*overflow: hidden;*/
-    /*text-overflow: ellipsis;*/
-    /*-o-text-overflow: ellipsis;*/
-    /*white-space: nowrap;*/
-    /*width: 100%;*/
-/*}*/
 
 #nav {
     width: 15%;
@@ -14,7 +7,5 @@
     height: 100%;
 }
 
-.search_icon {
-    margin-left: 5px;
-}
+
 
