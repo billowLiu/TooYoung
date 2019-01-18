@@ -1,5 +1,12 @@
 ;(function ($, window, document, undefined) {
     var pluginName = "jquerySimpleMenu";
+    var themes=[
+        "blue",
+        "green",
+        "red",
+        "white",
+        "black"
+    ]
     var defaults = {
         speed: 300,
         showDelay: 0,
@@ -7,6 +14,7 @@
         singleOpen: true,//只展开单个
         clickEffect: false,
         queryHeader: false,//是否显示头部查询
+        theme:"blue",
         menuData: []
     };
     var menuConfig = {
@@ -20,6 +28,7 @@
         //     defaults, options);
         defaults.menuData=options.menudata?options.menudata:[];
         defaults.queryHeader=options.header?options.header:false;
+        defaults.theme=options.theme&&themes.indexOf(options.theme)>-1?options.theme:defaults.theme;
         this._defaults = defaults;
         this._name = pluginName;
         this.init()
@@ -40,7 +49,7 @@
             //传入menujson 数据this.settings.menuData;
             var menulist = defaults.menuData;
             var header = defaults.queryHeader;
-
+            var theme = defaults.theme;
             if (menulist && menulist.length > 0) {
                 var menuDiv = $("<div>").attr({
                     class: "simple-menu",
@@ -142,7 +151,7 @@
                 }
                 $(menuDiv).append(menuUl)
                 $(this.element).append(menuDiv);
-                $(this.element).addClass("menu-nav blue");
+                $(this.element).addClass("menu-nav").addClass(defaults.theme);
             } else {
                 console.error("菜单不能为空");
             }

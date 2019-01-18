@@ -2,66 +2,24 @@ $(function () {
     if(!$.cookie("currentUser")||$.cookie("currentUser")==undefined){
         location.hash="login";
     };
-    var menudata =[
-        {
-            url: "#",
-            icon: "fa-home",
-            name: "一级目录(1)",
-            submenu: [
-                {
-                    url: "#",
-                    icon: "fa-home",
-                    name: "二级目录(1)二级目录(1)二级目录(1)二级目录(1)",
-                    submenu: [
-                        {
-                            url: "#home/demo1",
-                            icon: "fa-home",
-                            name: "三级",
-                            submenu: []
-                        },
-                        {
-                            url: "#home/demo1",
-                            icon: "fa-home",
-                            name: "三级",
-                            submenu: []
-                        },
-                        {
-                            url: "#home/demo1",
-                            icon: "fa-home",
-                            name: "三级",
-                            submenu: []
-                        }
-                    ]
-                },
-                {
-                    url: "#home/demo2",
-                    icon: "fa-home",
-                    name: "二级目录(2)",
-                    submenu: []
-                }
-            ]
+    var menudata =[];
+    // $.post("http://localhost:8080/common/getMenuList.do", {},
+    //     function (data) {
+    //         if (data.code == 200) {
+    //             menudata=data.data;
+    //         }
+    //     },
+    //     "json"
+    // );
+    $http.post("http://localhost:8080/common/getMenuList.do", {},
+        function (data) {
+            if (data.code == 200) {
+                menudata=data.data;
+                $("#nav").jquerySimpleMenu({menudata:menudata,header:true,theme:"blue"});
+            }
         },
-        {
-            url: "#",
-            icon: "fa-glass",
-            name: "一级目录(2)",
-            submenu: [
-                {
-                    url: "#",
-                    icon: "fa-glass",
-                    name: "主页",
-                    submenu: [
-                        {
-                            url: "#home/demo2",
-                            icon: "fa-glass",
-                            name: "主页",
-                            submenu: []
-                        }
-                    ]
-                }
-            ]
-        }
-    ]
-    $("#nav").jquerySimpleMenu({menudata:menudata,header:true});
+        "json"
+    )
+
 
 })
